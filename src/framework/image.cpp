@@ -273,3 +273,18 @@ void Image::drawRectangle(int start_x, int start_y, int width, int height, Color
 			}
 		}
 }
+
+void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) {
+	
+	if (fill) {
+		for (int x = start_x; x < this->width; ++x)
+		{
+			for (int y = start_y; y < this->height; ++y)
+			{
+				if ((x*x + y*y) < (r*r)) {
+					this->setPixel(x, y, color);
+				}
+			}
+		}
+	}	
+}

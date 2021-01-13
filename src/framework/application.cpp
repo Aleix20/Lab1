@@ -27,6 +27,7 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
+	
 }
 
 //render one frame
@@ -37,7 +38,8 @@ void Application::render( Image& framebuffer )
 
 	//here you can add your code to fill the framebuffer
 	
-	framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
+	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
+	framebuffer.drawCircle(50, 50, 70, Color(20, 20, 50), true);
 	//fill every pixel of the image with some random data
 	
 }

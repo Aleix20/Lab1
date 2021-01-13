@@ -73,6 +73,8 @@ public:
 
 	void drawRectangle(int start_x, int start_y, int width, int height, Color color, bool fill);
 
+	void drawCircle(int start_x, int start_y, int r, Color color, bool fill);
+
 	//used to easy code
 	#ifndef IGNORE_LAMBDAS
 
