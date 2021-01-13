@@ -2,6 +2,8 @@
 #include "utils.h"
 #include "image.h"
 
+Image myFramebuffer(100, 100);
+
 Application::Application(const char* caption, int width, int height)
 {
 	this->window = createWindow(caption, width, height);
@@ -25,6 +27,16 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
+	
+
+	//fill with black
+	for (int x = 0; x < myFramebuffer.width; ++x)
+	{
+		for (int y = 0; y < myFramebuffer.height; ++y)
+		{
+			myFramebuffer.setPixel(x, y, Color(0, 0, 0));
+		}
+	}
 }
 
 //render one frame
@@ -98,3 +110,4 @@ void Application::start()
 	std::cout << "launching loop..." << std::endl;
 	launchLoop(this);
 }
+

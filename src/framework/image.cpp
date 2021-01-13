@@ -1,6 +1,7 @@
 #include "image.h"
 
 
+
 Image::Image() {
 	width = 0; height = 0;
 	pixels = NULL;
@@ -246,33 +247,16 @@ void forEachPixel(Image& img, const Image& img2, F f) {
 	for(unsigned int pos = 0; pos < img.width * img.height; ++pos)
 		img.pixels[pos] = f( img.pixels[pos], img2.pixels[pos] );
 }
-
 #endif
 
-void drawRectangle(int x, int y, int w, int h, Color color, bool fill) {
-	if (fill) {
-		for (int x = x; x < (x + w); ++x)
+void Image::drawRectangle(int start_x, int start_y, int width, int height, Color fill_color, bool fill) {
+	
+	//fill the rectangle
+	for (int x = start_x; x < (start_x + width); ++x)
+	{
+		for (int y = start_y; y < (start_y + height); ++y)
 		{
-			for (int y = y; y < (y + h); ++y)
-			{
-				myFramebuffer.setPixel(x, y, color);
-			}
+			Application::myFramebuffer.setPixel(x, y, fill_color);
 		}
-
-	}
-	else {
-
-		for (int x = x; x < (x + w); ++x)
-		{
-			myFramebuffer.setPixel(x, y, color);
-			myFramebuffer.setPixel(x, y + h - 1, color);
-		}
-		for (int y = y + 1; y < (y + h - 1); ++y)
-		{
-			myFramebuffer.setPixel(x, y, color);
-			myFramebuffer.setPixel(x + w - 1, y, color);
-		}
-
-
 	}
 }
