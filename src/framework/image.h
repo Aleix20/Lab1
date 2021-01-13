@@ -75,6 +75,8 @@ public:
 
 	void drawCircle(int start_x, int start_y, int r, Color color, bool fill);
 
+	void drawLine(int x1, int y1, int x2, int y2, Color color);
+
 	//used to easy code
 	#ifndef IGNORE_LAMBDAS
 
