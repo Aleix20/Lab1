@@ -248,3 +248,31 @@ void forEachPixel(Image& img, const Image& img2, F f) {
 }
 
 #endif
+
+void drawRectangle(int x, int y, int w, int h, Color color, bool fill) {
+	if (fill) {
+		for (int x = x; x < (x + w); ++x)
+		{
+			for (int y = y; y < (y + h); ++y)
+			{
+				myFramebuffer.setPixel(x, y, color);
+			}
+		}
+
+	}
+	else {
+
+		for (int x = x; x < (x + w); ++x)
+		{
+			myFramebuffer.setPixel(x, y, color);
+			myFramebuffer.setPixel(x, y + h - 1, color);
+		}
+		for (int y = y + 1; y < (y + h - 1); ++y)
+		{
+			myFramebuffer.setPixel(x, y, color);
+			myFramebuffer.setPixel(x + w - 1, y, color);
+		}
+
+
+	}
+}
