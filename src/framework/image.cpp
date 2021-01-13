@@ -281,7 +281,7 @@ void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) 
 		{
 			for (int y = start_y-r; y < ((start_y - r) + 2 * r); ++y)
 			{
-				if (((x- start_x)*(x- start_x) + (y- start_y)*(y- start_y))-(r*r) <= 0){
+				if (((x- start_x)*(x- start_x) + (y- start_y)*(y- start_y))-(r*r) <= 0 && ((x - start_x) * (x - start_x) + (y - start_y) * (y - start_y)) - (r * r) >= -2*r){
 					this->setPixel(x, y, color);
 				}
 			}
