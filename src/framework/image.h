@@ -71,7 +71,7 @@ public:
 	bool loadTGA(const char* filename);
 	bool saveTGA(const char* filename);
 
-	void drawRectangle(int start_x, int start_y, int width, int height, Color fill_color, bool fill);
+	void drawRectangle(int x, int y, int w, int h, Color color, bool fill);
 
 	//used to easy code
 	#ifndef IGNORE_LAMBDAS

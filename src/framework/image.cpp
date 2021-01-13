@@ -249,14 +249,33 @@ void forEachPixel(Image& img, const Image& img2, F f) {
 }
 #endif
 
-void Image::drawRectangle(int start_x, int start_y, int width, int height, Color fill_color, bool fill) {
+void Image::drawRectangle(int x, int y, int w, int h, Color color, bool fill) {
 	
-	//fill the rectangle
-	for (int x = start_x; x < (start_x + width); ++x)
-	{
-		for (int y = start_y; y < (start_y + height); ++y)
-		{
-			Application::myFramebuffer.setPixel(x, y, fill_color);
+	
+		if (fill) {
+			for (int x = x; x < (x + w); ++x)
+			{
+				for (int y = y; y < (y + h); ++y)
+				{
+					myFramebuffer.setPixel(x, y, color);
+				}
+			}
+
 		}
-	}
+		else {
+
+			for (int x = x; x < (x + w); ++x)
+			{
+				myFramebuffer.setPixel(x, y, color);
+				myFramebuffer.setPixel(x, y + h - 1, color);
+			}
+			for (int y = y + 1; y < (y + h - 1); ++y)
+			{
+				myFramebuffer.setPixel(x, y, color);
+				myFramebuffer.setPixel(x + w - 1, y, color);
+			}
+
+
+		}
+	
 }
