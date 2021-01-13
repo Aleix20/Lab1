@@ -39,7 +39,7 @@ void Application::render( Image& framebuffer )
 	//here you can add your code to fill the framebuffer
 	
 	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
-	framebuffer.drawCircle(50, 50, 70, Color(20, 20, 50), true);
+	framebuffer.drawCircle(100, 100, 70, Color(255, 0, 0), true);
 	//fill every pixel of the image with some random data
 	
 }

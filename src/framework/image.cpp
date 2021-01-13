@@ -277,11 +277,11 @@ void Image::drawRectangle(int start_x, int start_y, int width, int height, Color
 void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) {
 	
 	if (fill) {
-		for (int x = start_x; x < this->width; ++x)
+		for (int x = start_x-r; x < 2*r; ++x)
 		{
-			for (int y = start_y; y < this->height; ++y)
+			for (int y = start_y-r; y < 2*r; ++y)
 			{
-				if ((x*x + y*y) < (r*r)) {
+				if (((x-start_x)*(x - start_x) + (y - start_y)*(y - start_y))-(r*r) <= 0){
 					this->setPixel(x, y, color);
 				}
 			}
