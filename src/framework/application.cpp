@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "image.h"
 
-Image myFramebuffer(100, 100);
+
 
 Application::Application(const char* caption, int width, int height)
 {
@@ -27,16 +27,6 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
-	
-
-	//fill with black
-	for (int x = 0; x < myFramebuffer.width; ++x)
-	{
-		for (int y = 0; y < myFramebuffer.height; ++y)
-		{
-			myFramebuffer.setPixel(x, y, Color(0, 0, 0));
-		}
-	}
 }
 
 //render one frame
@@ -46,15 +36,10 @@ void Application::render( Image& framebuffer )
 	framebuffer.fill(Color::BLACK);
 
 	//here you can add your code to fill the framebuffer
-
+	
+	framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
 	//fill every pixel of the image with some random data
-	for (unsigned int x = 0; x < framebuffer.width; x++)
-	{
-		for (unsigned int y = 0; y < framebuffer.height; y++)
-		{
-			framebuffer.setPixel(x, y, Color(randomValue() * 255, randomValue() * 255, randomValue() * 255)); //random color
-		}
-	}
+	
 }
 
 //called after render
