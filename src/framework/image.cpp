@@ -256,20 +256,20 @@ void Image::drawRectangle(int start_x, int start_y, int width, int height, Color
 			{
 				for (int y = start_y; y < (start_y + height); ++y)
 				{
-					this->setPixel(x, y, color);
+					this->setPixelSafe(x, y, color);
 				}
 			}
 		}
 		else {
 			for (int x = start_x; x < (start_x + width); ++x)
 			{
-				this->setPixel(x, start_y, color);
-				this->setPixel(x, start_y + height - 1, color);
+				this->setPixelSafe(x, start_y, color);
+				this->setPixelSafe(x, start_y + height - 1, color);
 			}
 			for (int y = start_y + 1; y < (start_y + height - 1); ++y)
 			{
-				this->setPixel(start_x, y, color);
-				this->setPixel(start_x + width - 1, y, color);
+				this->setPixelSafe(start_x, y, color);
+				this->setPixelSafe(start_x + width - 1, y, color);
 			}
 		}
 }
@@ -282,7 +282,7 @@ void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) 
 			for (int y = start_y-r; y < ((start_y - r) + 2 * r); ++y)
 			{
 				if (((x- start_x)*(x- start_x) + (y- start_y)*(y- start_y))-(r*r) <= 0 ){
-					this->setPixel(x, y, color);
+					this->setPixelSafe(x, y, color);
 				}
 			}
 		}
@@ -294,7 +294,7 @@ void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) 
 			for (int y = start_y - r; y < ((start_y - r) + 2 * r); ++y)
 			{
 				if (((x - start_x) * (x - start_x) + (y - start_y) * (y - start_y)) - (r * r) <= 0 && ((x - start_x) * (x - start_x) + (y - start_y) * (y - start_y)) - (r * r) >= -2 * r) {
-					this->setPixel(x, y, color);
+					this->setPixelSafe(x, y, color);
 				}
 			}
 		}
@@ -308,7 +308,7 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 		int v2 = (y2 - y1);
 		int m = v2 / v1;
 		int y = m * (x - x1) + y1;
-		this->setPixel(x, y, color);
+		this->setPixelSafe(x, y, color);
 	}
 
 }
