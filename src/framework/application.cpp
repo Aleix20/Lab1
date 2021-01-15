@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "image.h"
 
-
+Image img;
 
 Application::Application(const char* caption, int width, int height)
 {
@@ -28,7 +28,8 @@ void Application::init(void)
 
 	//here add your init stuff
 	
-	//Aquí es carreguen imatges
+	img.loadTGA("../res/willy.tga");
+	img.scale(window_width, window_height);
 }
 
 //render one frame
@@ -42,10 +43,15 @@ void Application::render( Image& framebuffer )
 	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
 	//framebuffer.drawCircle(400, 300, 300, Color(255, 0, 0), false);
 	//framebuffer.drawLine(200, 200, 300, 300, Color::BLUE);
-	framebuffer.drawGradientH(Color::BLUE, Color::RED);
+	//framebuffer.drawGradientH(Color::BLUE, Color::RED);
 	
 	//fill every pixel of the image with some random data
-	
+	for (unsigned int x = 0; x < framebuffer.width; x++) {
+		for (unsigned int y = 0; y < framebuffer.height;  y++) {
+			
+			framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+		}
+	}
 }
 
 //called after render

@@ -355,9 +355,9 @@ void Image::drawGradientRadial() {
 	}
 
 
-	double RadialGradient<T>::adjustRange(double oldNum, double oldMin, double oldMax, double newMin, double newMax) {
-		return ((((newMax - newMin) * (oldNum - oldMin)) / (oldMax - oldMin)) + newMin);
-	}
+	//double RadialGradient<T>::adjustRange(double oldNum, double oldMin, double oldMax, double newMin, double newMax) {
+		//return ((((newMax - newMin) * (oldNum - oldMin)) / (oldMax - oldMin)) + newMin);
+	//}
 
 
 }
