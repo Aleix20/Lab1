@@ -28,7 +28,7 @@ void Application::init(void)
 
 	//here add your init stuff
 	
-	img.loadTGA("../res/willy.tga");
+	img.loadTGA("../res/image.tga");
 	img.scale(window_width, window_height);
 }
 
@@ -44,14 +44,11 @@ void Application::render( Image& framebuffer )
 	//framebuffer.drawCircle(400, 300, 300, Color(255, 0, 0), false);
 	//framebuffer.drawLine(200, 200, 300, 300, Color::BLUE);
 	//framebuffer.drawGradientH(Color::BLUE, Color::RED);
-	
-	//fill every pixel of the image with some random data
-	for (unsigned int x = 0; x < framebuffer.width; x++) {
-		for (unsigned int y = 0; y < framebuffer.height;  y++) {
-			
-			framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
-		}
-	}
+
+	//framebuffer.greyImg(img);
+	//framebuffer.invertImg(img);
+	//framebuffer.rotateImg(img, 45);
+	//framebuffer.scaleImg(img,10.0);
 }
 
 //called after render

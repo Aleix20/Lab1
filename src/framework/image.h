@@ -81,6 +81,18 @@ public:
 
 	void drawGradientRadial();
 
+	void greyImg(Image img);
+
+	void invertImg(Image img);
+
+	void rotateImg(Image img, int angle);
+
+	void scaleImg(Image img, float scaleRatio);
+
+	
+
+
+
 	
 
 	//used to easy code

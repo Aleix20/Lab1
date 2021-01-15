@@ -361,3 +361,47 @@ void Image::drawGradientRadial() {
 
 
 }
+void Image::greyImg(Image img) {
+	for (unsigned int x = 0; x < this->width; x++) {
+		for (unsigned int y = 0; y < this->height; y++) {
+			Color actualPixel = img.getPixelSafe(x, y);
+			float average = (actualPixel.r+actualPixel.g+actualPixel.b)/3;
+			this->setPixel(x, y, Color(average,average,average));
+		}
+	}
+}
+void Image::invertImg(Image img) {
+	for (unsigned int x = 0; x < this->width; x++) {
+		for (unsigned int y = 0; y < this->height; y++) {
+			Color actualPixel = img.getPixelSafe(x, y);
+			
+			this->setPixel(x, y, Color(-actualPixel.r, -actualPixel.g, -actualPixel.b));
+		}
+	}
+}
+
+void Image::rotateImg(Image img, int angle) {
+	float centerPointX = this->width / 2;
+	float centerPointY = this->height / 2;
+	for (unsigned int x = 0; x < this->width; x++) {
+		for (unsigned int y = 0; y < this->height; y++) {
+			float newAngle = angle * (PI / 180);
+			
+			float newX = cos(-newAngle) * (x-centerPointX) - sin(-newAngle) * (y-centerPointY)+centerPointX;
+			float newY = sin(-newAngle) * (x - centerPointX) + cos(-newAngle) * (y-centerPointY)+centerPointY;
+
+			this->setPixelSafe(round(newX), round(newY), img.getPixel(x, y));
+		}
+	}
+}
+
+void Image::scaleImg(Image img,float scaleRatio) {
+	for (unsigned int x = 0; x < this->width; x++) {
+		for (unsigned int y = 0; y < this->height; y++) {
+			float s = (1.0 / scaleRatio);
+
+			this->setPixelSafe(x, y, img.getPixel(x*s, y*s));
+		}
+	}
+}
+	
