@@ -314,3 +314,50 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 	}
 
 }
+
+void Image::drawGradientH(Color startColor, Color endColor) {
+	
+	for (int x = 0; x < this->width; ++x)
+	{
+		for (int y = 0; y < this->height; ++y)
+		{
+			
+			float intensity = x / (float)this->width;
+
+			//interpolate each color
+			float red = startColor.r + (endColor.r - startColor.r) * (intensity);
+			float blue= startColor.b + (endColor.b - startColor.b) * (intensity);
+			float green= startColor.g + (endColor.g - startColor.g) * (intensity);
+			
+			
+			this->setPixel(x, y, Color(red,green, blue));
+		}
+	}
+}
+
+void Image::drawGradientRadial() {
+
+
+	int centerPointX = this->width / 2;
+	int centerPointY = this->height / 2;
+	float farDistanceCenter = sqrt(abs(pow(0 - centerPointX, 2)) + abs(pow(0 - centerPointY, 2)));
+
+	for (int x = 0; x < this->width; x++)
+	{
+		for (int y = 0; y < this->height; y++)
+		{
+
+			float distanceFromPointToCenter = sqrt(abs(pow(x - centerPointX, 2)) + abs(pow(y - centerPointY, 2)));
+
+			
+
+		}
+	}
+
+
+	double RadialGradient<T>::adjustRange(double oldNum, double oldMin, double oldMax, double newMin, double newMax) {
+		return ((((newMax - newMin) * (oldNum - oldMin)) / (oldMax - oldMin)) + newMin);
+	}
+
+
+}

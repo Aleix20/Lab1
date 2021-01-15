@@ -41,7 +41,8 @@ void Application::render( Image& framebuffer )
 	
 	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
 	//framebuffer.drawCircle(400, 300, 300, Color(255, 0, 0), false);
-	framebuffer.drawLine(200, 200, 300, 300, Color::BLUE);
+	//framebuffer.drawLine(200, 200, 300, 300, Color::BLUE);
+	framebuffer.drawGradientH(Color::BLUE, Color::RED);
 	
 	//fill every pixel of the image with some random data
 	
