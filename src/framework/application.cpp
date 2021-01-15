@@ -28,6 +28,7 @@ void Application::init(void)
 
 	//here add your init stuff
 	
+	//Aquí es carreguen imatges
 }
 
 //render one frame
