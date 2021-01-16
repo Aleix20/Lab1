@@ -79,7 +79,7 @@ public:
 
 	void drawGradientH(Color startColor, Color endColor);
 
-	void drawGradientRadial();
+	void drawRadialGradient();
 
 	void greyImg(Image img);
 

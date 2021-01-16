@@ -335,7 +335,7 @@ void Image::drawGradientH(Color startColor, Color endColor) {
 	}
 }
 
-void Image::drawGradientRadial() {
+void Image::drawRadialGradient() {
 
 
 	int centerPointX = this->width / 2;

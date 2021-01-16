@@ -37,18 +37,32 @@ void Application::render( Image& framebuffer )
 {
 	//clear framebuffer if we want to start from scratch
 	framebuffer.fill(Color::BLACK);
-
-	//here you can add your code to fill the framebuffer
 	
+	//filling the framebuffer with the image
+	/*for (unsigned int x = 0; x < framebuffer.width; x++) {
+		for (unsigned int y = 0; y < framebuffer.height; y++) {
+			framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+		}
+	}*/
+
+	//Task 1: Simple figures
 	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
 	//framebuffer.drawCircle(400, 300, 300, Color(255, 0, 0), false);
 	//framebuffer.drawLine(200, 200, 300, 300, Color::BLUE);
+	
+	//Task 2: Gradients
 	//framebuffer.drawGradientH(Color::BLUE, Color::RED);
+	//framebuffer.drawRadialGradient(Color::BLACK, Color::WHITE);
 
+	//Task 3: Effects
 	//framebuffer.greyImg(img);
 	//framebuffer.invertImg(img);
+	
+	//Task 4: Warping
 	//framebuffer.rotateImg(img, 45);
 	//framebuffer.scaleImg(img,10.0);
+
+	
 }
 
 //called after render
