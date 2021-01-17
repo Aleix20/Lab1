@@ -306,13 +306,11 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 	float v1 = (x2 - x1);
 	float v2 = (y2 - y1);
 	float m=0.0;
-	if (v1 == 0) {
-		
-	}
-	else {
-		 m = (v2 / v1);
-	}
 	
+	if (v1 != 0) {
+		m = (v2 / v1);
+	}
+
 	if (x2>x1) {
 		for (int x = x1; x < x2; x++)
 		{
@@ -322,7 +320,7 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 	}
 	else if(x2<x1) {
 
-		for (int x = x2; x <x1; x++)
+		for (int x = x2; x < x1; x++)
 		{
 			int y = m * (x - x1) + y1;
 			this->setPixelSafe(x, y, color);
@@ -342,12 +340,8 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 
 				this->setPixelSafe(x1, y, color);
 			}
-		}
-		
+		}	
 	}
-	
-	
-
 }
 
 void Image::drawGradientH(Color startColor, Color endColor) {
