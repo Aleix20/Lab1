@@ -264,12 +264,12 @@ void Image::drawRectangle(int start_x, int start_y, int width, int height, Color
 			for (int x = start_x; x < (start_x + width); ++x)
 			{
 				this->setPixelSafe(x, start_y, color);
-				this->setPixelSafe(x, start_y + height - 1, color);
+				this->setPixelSafe(x, start_y + height, color);
 			}
-			for (int y = start_y + 1; y < (start_y + height - 1); ++y)
+			for (int y = start_y + 1; y < (start_y + height); ++y)
 			{
 				this->setPixelSafe(start_x, y, color);
-				this->setPixelSafe(start_x + width - 1, y, color);
+				this->setPixelSafe(start_x + width, y, color);
 			}
 		}
 }

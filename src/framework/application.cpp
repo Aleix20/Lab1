@@ -28,7 +28,7 @@ void Application::init(void)
 
 	//here add your init stuff
 	
-	img.loadTGA("../res/image.tga");
+	img.loadTGA("../../res/image.tga");
 	img.scale(window_width, window_height);
 }
 
@@ -46,7 +46,7 @@ void Application::render( Image& framebuffer )
 	}*/
 
 	//Task 1: Simple figures
-	//framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
+	framebuffer.drawRectangle(50, 50, 50, 70, Color(20, 20, 20), true);
 	//framebuffer.drawCircle(400, 300, 300, Color(255, 0, 0), false);
 	framebuffer.drawLine(400, 200, 400, 100, Color::BLUE);
 	
