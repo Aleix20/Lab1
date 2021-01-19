@@ -9,6 +9,8 @@ const int midaArray = 50;
 struct Particle {
 	int x;
 	int y;
+	
+	
 	int size;
 };
 
@@ -46,11 +48,14 @@ void Application::init(void)
 	{
 		
 		int x = rand() % (int)window_width;
-		int y = rand() % (int)(window_height);
+		int y = rand() % (int)(window_height)+300;
 		int size =  rand() % 3;
+		
+		
 		arr[i].x = x;
 		arr[i].y = y;
 		arr[i].size = size;
+		
 
 		
 	}
@@ -172,8 +177,12 @@ void Application::update(double seconds_elapsed)
 	for (int i = 0; i < midaArray; i++)
 	{
 		
-		arr[i].y = arr[i].y - 3*seconds_elapsed;
-		arr[i].x = arr[i].x - 1 * seconds_elapsed;
+		arr[i].y = arr[i].y - 2*seconds_elapsed;
+		arr[i].x = arr[i].x +1 * seconds_elapsed;
+
+		if (arr[i].y <= 0) {
+			arr[i].y = 700;
+		}
 
 	}
 
