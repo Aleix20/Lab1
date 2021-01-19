@@ -2,8 +2,17 @@
 #include "utils.h"
 #include "image.h"
 
+
 Image img;
 int var;
+const int midaArray = 50;
+struct Particle {
+	int x;
+	int y;
+	int size;
+};
+
+struct Particle arr[midaArray];
 
 Application::Application(const char* caption, int width, int height)
 {
@@ -31,6 +40,20 @@ void Application::init(void)
 	
 	img.loadTGA("../res/image.tga");
 	img.scale(window_width, window_height);
+
+	//Task 5:
+	for (int i = 0; i < midaArray; i++)
+	{
+		
+		int x = rand() % (int)window_width;
+		int y = rand() % (int)(window_height);
+		int size =  rand() % 3;
+		arr[i].x = x;
+		arr[i].y = y;
+		arr[i].size = size;
+
+		
+	}
 }
 
 //render one frame
@@ -121,6 +144,18 @@ void Application::render( Image& framebuffer )
 		}
 		framebuffer.scaleImg(img, 10.0);
 	}
+	if (var==9) {
+		framebuffer.fill(Color::BLACK);
+
+		for (int i = 0; i < midaArray; i++)
+		{
+
+			framebuffer.drawCircle(arr[i].x, arr[i].y, arr[i].size, Color::WHITE, true);
+
+
+		}
+
+	}
 }
 
 //called after render
@@ -129,9 +164,20 @@ void Application::update(double seconds_elapsed)
 	//to see all the keycodes: https://wiki.libsdl.org/SDL_Keycode
 	if (keystate[SDL_SCANCODE_SPACE]) //if key space is pressed
 	{
+		
 		//...
 	}
 
+	//Task 5
+	for (int i = 0; i < midaArray; i++)
+	{
+		
+		arr[i].y = arr[i].y - 3*seconds_elapsed;
+		arr[i].x = arr[i].x - 1 * seconds_elapsed;
+
+	}
+
+	
 	//to read mouse position use mouse_position
 }
 
@@ -176,7 +222,13 @@ void Application::onKeyDown(SDL_KeyboardEvent event)
 	case SDL_SCANCODE_8:
 		var = 8;
 		break;
+
+	case SDL_SCANCODE_9:
+		var = 9;
+		break;
+
 	}
+	
 }
 
 //keyboard key up event 
