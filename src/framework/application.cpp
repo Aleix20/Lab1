@@ -71,7 +71,7 @@ void Application::render( Image& framebuffer )
 
 	if (var == 3) {
 		framebuffer.fill(Color::BLACK);
-		//framebuffer.drawRadialGradient(Color::BLACK, Color::WHITE);
+		framebuffer.drawRadialGradient();
 	}
 	
 	//Task 3: Effects

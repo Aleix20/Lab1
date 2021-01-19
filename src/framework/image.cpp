@@ -378,7 +378,11 @@ void Image::drawRadialGradient() {
 
 			float distanceFromPointToCenter = sqrt(abs(pow(x - centerPointX, 2)) + abs(pow(y - centerPointY, 2)));
 
-			
+			float intensity = (farDistanceCenter - distanceFromPointToCenter) / farDistanceCenter;
+			float f = intensity * 255;
+			f = 255 - f;
+			this->setPixelSafe(x, y, Color(f, f, f));
+
 
 		}
 	}
