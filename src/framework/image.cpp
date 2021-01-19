@@ -386,14 +386,8 @@ void Image::drawRadialGradient() {
 
 		}
 	}
-
-
-	//double RadialGradient<T>::adjustRange(double oldNum, double oldMin, double oldMax, double newMin, double newMax) {
-		//return ((((newMax - newMin) * (oldNum - oldMin)) / (oldMax - oldMin)) + newMin);
-	//}
-
-
 }
+
 void Image::greyImg(Image img) {
 	for (unsigned int x = 0; x < this->width; x++) {
 		for (unsigned int y = 0; y < this->height; y++) {
