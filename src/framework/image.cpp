@@ -432,4 +432,5 @@ void Image::scaleImg(Image img,float scaleRatio) {
 		}
 	}
 }
+
 	

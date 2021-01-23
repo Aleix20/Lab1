@@ -6,6 +6,7 @@
 Image img1;
 Image img2;
 Image canvas;
+Color c;
 int var;
 const int midaArray = 50;
 
@@ -164,6 +165,58 @@ void Application::render( Image& framebuffer )
 			}
 		}
 	}
+	if (var == 11) {
+		//filling the framebuffer with the image
+		for (unsigned int x = 5; x < framebuffer.width-5; x++) {
+			for (unsigned int y = 5; y < framebuffer.height - 50; y++) {
+				framebuffer.setPixel(x, y, Color::WHITE);
+			}
+		}
+	}
+
+	if (var == 12) {
+		canvas.resize(790, 545);
+		for (unsigned int x = 5; x < framebuffer.width-5; x++) {
+			for (unsigned int y = 5; y < framebuffer.height-50; y++) {
+				canvas.setPixelSafe(x-5, y-5, framebuffer.getPixelSafe(x,y));
+			}
+		}
+
+		canvas.saveTGA("../res/LaObraMagnífica.tga");
+	}
+
+	if (var == 13) {
+		c = Color::BLACK;
+	}
+	if (var == 14) {
+		c = Color::RED;
+	}
+	if (var == 15) {
+		c = Color::GREEN;
+	}
+	if (var == 16) {
+		c = Color::BLUE;
+	}
+	if (var == 17) {
+		c = Color::YELLOW;
+	}
+	if (var == 18) {
+		c = Color::PURPLE;
+	}
+	if (var == 19) {
+		c = Color::CYAN;
+		
+		//filling the framebuffer with the image
+		for (unsigned int x = 5; x < framebuffer.width - 5; x++) {
+			for (unsigned int y = 5; y < framebuffer.height - 50; y++) {
+				framebuffer.setPixel(x, y, c);
+			}
+		}
+	}
+	if (var == 20) {
+		c = Color::WHITE;
+	}
+
 }
 
 //called after render
@@ -179,17 +232,14 @@ void Application::update(double seconds_elapsed)
 	//Task 5
 	for (int i = 0; i < midaArray; i++)
 	{
-		
 		arr[i].y = arr[i].y - 2*seconds_elapsed;
 		arr[i].x = arr[i].x +1 * seconds_elapsed;
 
 		if (arr[i].y <= 0) {
 			arr[i].y = 700;
 		}
-
 	}
 
-	
 	//to read mouse position use mouse_position
 }
 
@@ -258,7 +308,48 @@ void Application::onMouseButtonDown( SDL_MouseButtonEvent event )
 	if (event.button == SDL_BUTTON_LEFT) //left mouse pressed
 	{
 		//if you read mouse position from the event, careful, Y is reversed, use mouse_position instead
+		if ((mouse_position.x >= 10 && mouse_position.x <= 35) && (mouse_position.y >= 560 && mouse_position.y <= 590)){
+			var = 11;
+		}
 
+		else if ((mouse_position.x >= 60 && mouse_position.x <= 90) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 12;
+		}
+
+		else if ((mouse_position.x >= 111 && mouse_position.x <= 138) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 13;
+		}
+
+
+		else if ((mouse_position.x >= 163 && mouse_position.x <= 186) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 14;
+		}
+
+		else if ((mouse_position.x >= 214 && mouse_position.x <= 238) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 15;
+		}
+
+		else if ((mouse_position.x >= 264 && mouse_position.x <= 288) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 16;
+		}
+
+		else if ((mouse_position.x >= 314 && mouse_position.x <= 338) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 17;
+		}
+
+		else if ((mouse_position.x >= 364 && mouse_position.x <= 388) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 18;
+		}
+
+		else if ((mouse_position.x >= 414 && mouse_position.x <= 438) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 19;
+		}
+
+		else if ((mouse_position.x >= 464 && mouse_position.x <= 488) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+			var = 20;
+		}
+
+		
 	}
 }
 
