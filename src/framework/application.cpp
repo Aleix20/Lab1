@@ -3,14 +3,15 @@
 #include "image.h"
 
 
-Image img;
+Image img1;
+Image img2;
+Image canvas;
 int var;
 const int midaArray = 50;
+
 struct Particle {
 	int x;
 	int y;
-	
-	
 	int size;
 };
 
@@ -39,10 +40,12 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
+	img1.loadTGA("../res/image.tga");
+	img1.scale(window_width, window_height);
 	
-	img.loadTGA("../res/image.tga");
-	img.scale(window_width, window_height);
-
+	img2.loadTGA("../res/toolbar.tga");
+	
+	
 	//Task 5:
 	for (int i = 0; i < midaArray; i++)
 	{
@@ -51,13 +54,9 @@ void Application::init(void)
 		int y = rand() % (int)(window_height)+300;
 		int size =  rand() % 3;
 		
-		
 		arr[i].x = x;
 		arr[i].y = y;
 		arr[i].size = size;
-		
-
-		
 	}
 }
 
@@ -107,7 +106,7 @@ void Application::render( Image& framebuffer )
 		//filling the framebuffer with the image
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = 0; y < framebuffer.height; y++) {
-				framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
 	}
@@ -116,50 +115,54 @@ void Application::render( Image& framebuffer )
 		//filling the framebuffer with the image
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = 0; y < framebuffer.height; y++) {
-				framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-
-		framebuffer.greyImg(img);
+		framebuffer.greyImg(img1);
 	}
 	
 	if (var == 6) {
 		//filling the framebuffer with the image
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = 0; y < framebuffer.height; y++) {
-				framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-
-		framebuffer.invertImg(img);
+		framebuffer.invertImg(img1);
 	}
 	
 	//Task 4: Warping
 	if (var == 7) {
 		framebuffer.fill(Color::BLACK);
-		framebuffer.rotateImg(img, 45);
+		framebuffer.rotateImg(img1, 45);
 	}
 
 	if (var == 8) {
 		//filling the framebuffer with the image
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = 0; y < framebuffer.height; y++) {
-				framebuffer.setPixel(x, y, img.getPixelSafe(x, y));
+				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-		framebuffer.scaleImg(img, 10.0);
+		framebuffer.scaleImg(img1, 10.0);
 	}
 	if (var==9) {
 		framebuffer.fill(Color::BLACK);
 
 		for (int i = 0; i < midaArray; i++)
 		{
-
 			framebuffer.drawCircle(arr[i].x, arr[i].y, arr[i].size, Color::WHITE, true);
 
-
 		}
+	}
 
+	if (var == 10) {
+		//filling the framebuffer with the image
+		for (unsigned int x = 0; x < framebuffer.width; x++) {
+			for (unsigned int y = framebuffer.height-1; y > 0; y--) {
+				framebuffer.setPixel(x, y, img2.getPixelSafe(x, y-framebuffer.height + img2.height));
+			}
+		}
 	}
 }
 
@@ -235,7 +238,10 @@ void Application::onKeyDown(SDL_KeyboardEvent event)
 	case SDL_SCANCODE_9:
 		var = 9;
 		break;
-
+	
+	case SDL_SCANCODE_0:
+		var = 10;
+		break;
 	}
 	
 }
