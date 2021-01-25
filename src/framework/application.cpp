@@ -187,8 +187,13 @@ void Application::update(double seconds_elapsed)
 	//to see all the keycodes: https://wiki.libsdl.org/SDL_Keycode
 	if (keystate[SDL_SCANCODE_SPACE]) //if key space is pressed
 	{
-		
-		//...
+		if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) {
+			canvas.drawCircle(mouse_position.x, mouse_position.y, 5, c, true);
+			canvas.drawCircle(mouse_position.x+mouse_delta.x, mouse_position.y+mouse_delta.y,5,c,true);
+			
+			//canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x +mouse_delta.x, mouse_position.y + mouse_delta.y, c);
+			
+		}
 	}
 
 	//Task 5
@@ -202,7 +207,7 @@ void Application::update(double seconds_elapsed)
 		}
 	}
 
-	if (keystate[SDL_BUTTON_LEFT]) {
+	if (keystate[SDL_BUTTON_LEFT]){
 		if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) {
 			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_delta.x, mouse_delta.y, c);
 		}
@@ -285,7 +290,6 @@ void Application::onMouseButtonDown( SDL_MouseButtonEvent event )
 		else if ((mouse_position.x >= 111 && mouse_position.x <= 138) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
 			c = Color::BLACK;
 			xrect = 112;
-			
 		}
 
 		else if ((mouse_position.x >= 163 && mouse_position.x <= 186) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
