@@ -250,86 +250,84 @@ void forEachPixel(Image& img, const Image& img2, F f) {
 }
 #endif
 
-void Image::drawRectangle(int start_x, int start_y, int width, int height, Color color, bool fill) {
+void Image::drawRectangle(int start_x, int start_y, int width, int height, Color color, bool fill) { //Funció per dibuixar un rectangle
 	
-		if (fill) {
+		if (fill) { //Comprovem si volem pintar el rectangle per dins
 			for (int x = start_x; x < (start_x + width); ++x)
 			{
 				for (int y = start_y; y < (start_y + height); ++y)
 				{
-					this->setPixelSafe(x, y, color);
+					this->setPixelSafe(x, y, color); //Iterem en tots els pixels coresponents al rectangle i els pintem
 				}
 			}
 		}
-		else {
-			for (int x = start_x; x < (start_x + width); ++x)
+		else { //Si no volem pintar el rectangle per dins
+			for (int x = start_x; x < (start_x + width); ++x) //Si no volem pintar-lo per dins separem els bucles realitzant el següent
 			{
-				this->setPixelSafe(x, start_y, color);
-				this->setPixelSafe(x, start_y + height, color);
+				this->setPixelSafe(x, start_y, color); //Pintem la línia de sota del rectangle
+				this->setPixelSafe(x, start_y + height, color); //Pintem la línia de dalt del rectangle
 			}
-			for (int y = start_y + 1; y < (start_y + height); ++y)
+			for (int y = start_y; y < (start_y + height); ++y)
 			{
-				this->setPixelSafe(start_x, y, color);
-				this->setPixelSafe(start_x + width, y, color);
+				this->setPixelSafe(start_x, y, color); //Pintem la línia de l'esquerra del rectangle
+				this->setPixelSafe(start_x + width, y, color); //Pintem la línia de la dreta del rectangle
 			}
 		}
 }
 
-void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) {
+void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) { //Funció que ens permet dibuixar un cercle
 	
-	if (fill) {
-		for (int x = start_x-r; x < ((start_x - r)+2*r); ++x)
+	if (fill) { //Comprovem si volem pintar el cercle per dins
+		for (int x = start_x-r; x < ((start_x - r) + 2*r); ++x) //Comencem desde el vertex esquerra de sota del quadrat que inclou el cercle fins on acaba aquest rectangle
 		{
-			for (int y = start_y-r; y < ((start_y - r) + 2 * r); ++y)
+			for (int y = start_y-r; y < ((start_y-r) + 2*r); ++y)
 			{
-				if (((x- start_x)*(x- start_x) + (y- start_y)*(y- start_y))-(r*r) <= 0 ){
-					this->setPixelSafe(x, y, color);
+				if (((x- start_x)*(x- start_x) + (y-start_y)*(y-start_y)) - (r*r) <= 0 ){ //Comprobem si el punt està forma part de la circumferència amb la seva ecuació implícita
+					this->setPixelSafe(x, y, color); //Si el punt forma part del cercle el pintem
 				}
 			}
 		}
 	}	
-	else
-	{
-		for (int x = start_x - r; x < ((start_x - r) + 2 * r); ++x)
+	else{ //Si no volem pintar el cercle per dins
+		for (int x = start_x-r; x < ((start_x-r) + 2*r); ++x)
 		{
-			for (int y = start_y - r; y < ((start_y - r) + 2 * r); ++y)
-			{
-				if (((x - start_x) * (x - start_x) + (y - start_y) * (y - start_y)) - (r * r) <= 0 && ((x - start_x) * (x - start_x) + (y - start_y) * (y - start_y)) - (r * r) >= -2 * r) {
-					this->setPixelSafe(x, y, color);
+			for (int y = start_y-r; y < ((start_y-r) + 2*r); ++y)
+			{//En aquest cas hem de comprobar si els punts estan dins el cercle, però compleixen que obtenen com a resultat de l'equació un valor >= a -2r donat per aplicar un gruix donat per (r-G)^2 <= equació <=0
+				if (((x-start_x)*(x-start_x) + (y-start_y)*(y-start_y)) - (r*r) <= 0 && ((x-start_x)*(x-start_x) + (y-start_y)*(y-start_y)) - (r*r) >= -2*r) {
+					this->setPixelSafe(x, y, color); //El punt que compleixi les dues condicions el pintarem
 				}
 			}
 		}
 	}
 }
 
-void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness) {
+void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness) { //Funció que ens permetrá dibuixar una línia
 	
-	float v1 = (x2 - x1);
-	float v2 = (y2 - y1);
-	float m=0.0;
+	float v1 = (x2 - x1); //Primera component del vector director de la recta
+	float v2 = (y2 - y1); //Primera component del vector director de la recta
+	float m = 0.0; //Inicialitzem la variable m que será el pendent de la recta
 	
-	if (v1 != 0) {
+	if (v1 != 0) {   //En el cas de que la primera component sigui diferent de 0, calculem el pendent de la recta 
 		m = (v2 / v1);
 	}
 
-	if (x2>x1) {
+	if (x2>x1) { //Si la recta es dirigeix cap algun dels dos quadrants de la dreta de l'eix de coordenades cartesià
 		for (int x = x1; x < x2; x++)
 		{
-			int y = m * (x - x1) + y1;
+			int y = m * (x - x1) + y1; //Calculem el valor del píxel y per cada x
 			this->setPixelSafe(x, y, color);
 			if (thickness) {
-				this->setPixelSafe(x, y + 1, color);
+				this->setPixelSafe(x, y + 1, color); //Si volem afegir gruixària a la recta, dibuixem els pixels del seu voltant
 				this->setPixelSafe(x, y + 2, color);
 				this->setPixelSafe(x, y + 3, color);
 			}
 			
 		}
 	}
-	else if(x2<x1) {
-
+	else if(x2<x1) { //Si la recta es dirigeix cap algun dels dos quadrants de l'esquerra de l'eix de coordenades cartesià
 		for (int x = x2; x < x1; x++)
 		{
-			int y = m * (x - x1) + y1;
+			int y = m * (x - x1) + y1; //Calculem el valor del píxel y per cada x
 			this->setPixelSafe(x, y, color);
 			if (thickness) {
 				this->setPixelSafe(x, y + 1, color);
@@ -339,11 +337,10 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness
 		}
 	}
 	else {
-		if (y2>y1) {
+		if (y2>y1) { //Si la recta va cap amunt amb pendent infinit
 			for (int y = y1; y < y2; y++)
 			{
-
-				this->setPixelSafe(x1, y, color);
+				this->setPixelSafe(x1, y, color); //Pintem els pixels des de y1 fins y2
 				if (thickness) {
 					this->setPixelSafe(x1, y + 1, color);
 					this->setPixelSafe(x1, y + 2, color);
@@ -351,11 +348,10 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness
 				}
 			}
 		}
-		else {
-			for (int y = y2; y < y1; y++)
+		else { //Si la recta va cap avall amb pendent infinit
+			for (int y = y1; y > y2; y--) //Per anar de y1 a y2 en aquest cas hem de decrementar y
 			{
-
-				this->setPixelSafe(x1, y, color);
+				this->setPixelSafe(x1, y, color); //Pintem els pixels des de y1 fins y2
 				if (thickness) {
 					this->setPixelSafe(x1, y + 1, color);
 					this->setPixelSafe(x1, y + 2, color);
@@ -366,28 +362,26 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness
 	}
 }
 
-void Image::drawGradientH(Color startColor, Color endColor) {
+void Image::drawGradientH(Color startColor, Color endColor) { //Funció que ens permet dibuixar un gradient de dos color escollits
 	
 	for (int x = 0; x < this->width; ++x)
 	{
 		for (int y = 0; y < this->height; ++y)
 		{
-			
-			float intensity = x / (float)this->width;
+			float intensity = x / (float)this->width; //Calculem la intensitat del color iterativament segons el pixel en el que ens trobem
 
-			//interpolate each color
-			float red = startColor.r + (endColor.r - startColor.r) * (intensity);
-			float blue= startColor.b + (endColor.b - startColor.b) * (intensity);
-			float green= startColor.g + (endColor.g - startColor.g) * (intensity);
+			//interpolem cada color
+			float red = startColor.r + (endColor.r - startColor.r) * (intensity); //Calculem el nivell de vermell segons la intensitat donat el pixel en el que estem i la resta del nivell de vermell del color final i l'inicial + el nivell de vermell inicial
+			float green = startColor.g + (endColor.g - startColor.g) * (intensity); //Calculem el nivell de verd segons la intensitat donat el pixel en el que estem i la resta del nivell de verd del color final i l'inicial + el nivell de verd inicial
+			float blue = startColor.b + (endColor.b - startColor.b) * (intensity); //Calculem el nivell de blau segons la intensitat donat el pixel en el que estem i la resta del nivell de blau del color final i l'inicial + el nivell de blau inicial
 			
 			
-			this->setPixel(x, y, Color(red,green, blue));
+			this->setPixel(x, y, Color(red, green, blue)); //Pintem el pixel amb els nous valors del pixel segons la intensitat
 		}
 	}
 }
 
 void Image::drawRadialGradient() {
-
 
 	int centerPointX = this->width / 2;
 	int centerPointY = this->height / 2;
@@ -397,7 +391,6 @@ void Image::drawRadialGradient() {
 	{
 		for (int y = 0; y < this->height; y++)
 		{
-
 			float distanceFromPointToCenter = sqrt(abs(pow(x - centerPointX, 2)) + abs(pow(y - centerPointY, 2)));
 
 			float intensity = (farDistanceCenter - distanceFromPointToCenter) / farDistanceCenter;
@@ -405,51 +398,53 @@ void Image::drawRadialGradient() {
 			f = 255 - f;
 			this->setPixelSafe(x, y, Color(f, f, f));
 
-
 		}
 	}
 }
 
-void Image::greyImg(Image img) {
+void Image::greyImg(Image img) { //Funció per aplicar un filtre d'average a la imatge
+	
 	for (unsigned int x = 0; x < this->width; x++) {
 		for (unsigned int y = 0; y < this->height; y++) {
-			Color actualPixel = img.getPixelSafe(x, y);
-			float average = (actualPixel.r+actualPixel.g+actualPixel.b)/3.0;
-			this->setPixel(x, y, Color(average,average,average));
+			Color actualPixel = img.getPixelSafe(x, y); //Prenem el pixel en el que estem
+			float average = (actualPixel.r+actualPixel.g+actualPixel.b)/3.0; //Realitzem la mitjana aritmètica dels valors de les components rgb
+			this->setPixel(x, y, Color(average,average,average)); //Actualitzem els valors dels píxels amb els nous valors donats per el càlcul anterior
 		}
 	}
 }
-void Image::invertImg(Image img) {
+void Image::invertImg(Image img) { //Funció que ens permet aplicar el filtre negatiu a la imatge
+	
 	for (unsigned int x = 0; x < this->width; x++) {
 		for (unsigned int y = 0; y < this->height; y++) {
-			Color actualPixel = img.getPixelSafe(x, y);
-			
-			this->setPixel(x, y, Color(-actualPixel.r, -actualPixel.g, -actualPixel.b));
+			Color actualPixel = img.getPixelSafe(x, y); //^renem el pixel en el que estem
+			this->setPixel(x, y, Color(-actualPixel.r, -actualPixel.g, -actualPixel.b)); //Actualitzem el valor del pixel amb els valors negatius dels valors rgb anteriors
 		}
 	}
 }
 
-void Image::rotateImg(Image img, int angle) {
-	float centerPointX = this->width / 2;
+void Image::rotateImg(Image img, int angle) { //Funció que ens permet rotar una imatge
+	
+	float centerPointX = this->width / 2; //Calculem el centre del framebuffer
 	float centerPointY = this->height / 2;
 	for (unsigned int x = 0; x < this->width; x++) {
 		for (unsigned int y = 0; y < this->height; y++) {
-			float newAngle = angle * (PI / 180.0);
-			
-			float newX = cos(newAngle) * (x-centerPointX) - sin(newAngle) * (y-centerPointY)+centerPointX;
+			float newAngle = angle * (PI / 180.0); //Passem l'angle de rotació a radiants
+
+			float newX = cos(newAngle) * (x-centerPointX) - sin(newAngle) * (y-centerPointY)+centerPointX; //Calculem els valors dels píxels dels que volem informació per girar
 			float newY = sin(newAngle) * (x - centerPointX) + cos(newAngle) * (y-centerPointY)+centerPointY;
 
-			this->setPixelSafe(x,y, img.getPixelSafe(round(newX), round(newY)));
+			this->setPixelSafe(x,y, img.getPixelSafe(round(newX), round(newY))); //Actualitzem els valors dels píxels segons el píxel que hem pres per girar
 		}
 	}
 }
 
-void Image::scaleImg(Image img,float scaleRatio) {
+void Image::scaleImg(Image img,float scaleRatio) { //Funció que permet escalar la imatge
+	
 	for (unsigned int x = 0; x < this->width; x++) {
 		for (unsigned int y = 0; y < this->height; y++) {
-			float s = (1.0 / scaleRatio);
+			float s = (1.0 / scaleRatio); //Calculem el paràmetre d'escalat
 
-			this->setPixelSafe(x, y, img.getPixel(x*s, y*s));
+			this->setPixelSafe(x, y, img.getPixel(x*s, y*s)); //Multipliquem els pixels de la foto per l'escalat
 		}
 	}
 }

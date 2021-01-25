@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "image.h"
 
-Image img1;
+Image img1; //Declarem les variables globals que utilitzarem més endavant
 Image img2;
 Image canvas;
 Color c;
@@ -10,13 +10,13 @@ int var;
 const int midaArray = 50;
 int xrect = 0;
 
-struct Particle {
+struct Particle { //Creem la estructura partícula amb la coordenada x i y i el seu tamany
 	int x;
 	int y;
 	int size;
 };
 
-struct Particle arr[midaArray];
+struct Particle arr[midaArray]; //Creem un array d´estructures partícula
 
 Application::Application(const char* caption, int width, int height)
 {
@@ -41,22 +41,22 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
-	img1.loadTGA("../../res/image.tga");
-	img1.scale(window_width, window_height);
+	img1.loadTGA("../../res/image.tga");       //Carreguem les imatges que necessitem i les escalem
+	img1.scale(window_width, window_height);   
 	
 	img2.loadTGA("../../res/toolbar.tga");
 	
 	canvas.resize(800, 600);
-	canvas.fill(Color::WHITE);
+	canvas.fill(Color::WHITE); //Pintem el canvas de blanc en un inici
 	
 	//Task 5:
 	for (int i = 0; i < midaArray; i++)
 	{
-		int x = rand() % (int)window_width;
-		int y = rand() % (int)(window_height)+300;
-		int size =  rand() % 3;
+		int x = rand() % (int)window_width; //Calculem una coordenada x aleatoria per la partícula
+		int y = rand() % (int)window_height; //Calculem una coordenada y aleatoria per la partícula
+		int size =  rand() % 3; //Calculem un valor aleatori entre 0 i 3 per al tamany
 		
-		arr[i].x = x;
+		arr[i].x = x; //Assignem els valors a les estructures emmagatzemades a l'array
 		arr[i].y = y;
 		arr[i].size = size;
 	}
@@ -70,7 +70,9 @@ void Application::render( Image& framebuffer )
 	
 	if (var == 1) {
 		//Task 1: Simple figures
-		framebuffer.fill(Color::BLACK);
+		framebuffer.fill(Color::BLACK); 
+		
+		//Apliquem les funcions de la tasca 1
 		
 		framebuffer.drawRectangle(330, 450, 50, 70, Color(255, 0, 0), true);
 		framebuffer.drawRectangle(420, 450, 50, 70, Color(255, 0, 0), false);
@@ -104,7 +106,7 @@ void Application::render( Image& framebuffer )
 	
 	//Task 3: Effects
 	if (var == 4) {
-		//filling the framebuffer with the image
+		//filling the framebuffer with the image1 (fruita)
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = 0; y < framebuffer.height; y++) {
 				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
@@ -119,7 +121,7 @@ void Application::render( Image& framebuffer )
 				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-		framebuffer.greyImg(img1);
+		framebuffer.greyImg(img1); //Apliquem el filtre de grisos
 	}
 	
 	if (var == 6) {
@@ -129,13 +131,13 @@ void Application::render( Image& framebuffer )
 				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-		framebuffer.invertImg(img1);
+		framebuffer.invertImg(img1); //Apliquem el filtre de negatius
 	}
 	
 	//Task 4: Warping
 	if (var == 7) {
 		framebuffer.fill(Color::BLACK);
-		framebuffer.rotateImg(img1, 45);
+		framebuffer.rotateImg(img1, 45); //Girem la imatge 45 graus
 	}
 
 	if (var == 8) {
@@ -145,40 +147,36 @@ void Application::render( Image& framebuffer )
 				framebuffer.setPixel(x, y, img1.getPixelSafe(x, y));
 			}
 		}
-		framebuffer.scaleImg(img1, 10.0);
+		framebuffer.scaleImg(img1, 10.0); //Re-escalem la imatge
 	}
 	if (var==9) {
 		framebuffer.fill(Color::BLACK);
 
 		for (int i = 0; i < midaArray; i++)
 		{
-			framebuffer.drawCircle(arr[i].x, arr[i].y, arr[i].size, Color::WHITE, true);
+			framebuffer.drawCircle(arr[i].x, arr[i].y, arr[i].size, Color::WHITE, true); //Dibuixem cada floquet accedint a cada posició de l'array de partícules
 		}
 	}
 
 	if (var == 10) {
-		
-		//filling the framebuffer with the image
+		//filling the framebuffer with the image2 (Entorn per pintar)
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = framebuffer.height-1; y > 0; y--) {
 				framebuffer.setPixel(x, y, img2.getPixelSafe(x, y-framebuffer.height + img2.height));
 			}
 		}
 		
-		if (xrect > 0) {
+		if (xrect > 0) { //En el cas de que la coordenada x del botó sigui major que 0 li dibuixem un rectangle blanc que indiqui que està pressionat
 			framebuffer.drawRectangle(xrect, 562, 26, 26, Color::WHITE, false);
 		}
 
-		//filling the framebuffer with the image
+		//filling the framebuffer with the canvas
 		for (unsigned int x = 5; x < framebuffer.width - 5; x++) {
 			for (unsigned int y = 5; y < framebuffer.height - 50; y++) {
 				framebuffer.setPixel(x, y, canvas.getPixelSafe(x, y));
 			}
 		}
-
-		
 	}
-	
 }
 
 //called after render
@@ -193,22 +191,24 @@ void Application::update(double seconds_elapsed)
 	//Task 5
 	for (int i = 0; i < midaArray; i++)
 	{
-		arr[i].y = arr[i].y - 2*seconds_elapsed;
-		arr[i].x = arr[i].x +1 * seconds_elapsed;
+		arr[i].x = arr[i].x + 1*seconds_elapsed; //Actualitzem els valors de les coordenades de cada partícula segons l'equació del moviment P' = P + V*t
+		arr[i].y = arr[i].y - 2*seconds_elapsed; 		
 
-		if (arr[i].y <= 0) {
+		if (arr[i].y <= 0) { //Si el floquet ja ha sortit del framebuffer el fem sortir per dalt canviant el valor de la seva coordenada y per el de dalt de tot
 			arr[i].y = 700;
 		}
 	}
 	
-	if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+	if (var == 10) { //Si estem a la tasca de l'entorn gràfic
 		
-		if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) {
-			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x + mouse_delta.x, mouse_position.y + mouse_delta.y, c, true);
+		if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) { //Si pressionem el botó del ratolí
 
+			if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) { //Si el ratolí esta dins el canvas
+				canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x + mouse_delta.x, mouse_position.y + mouse_delta.y, c, true); //Dibuixem una línia connectant els punts següents i anteriors del nostre recorregut
+			}
 		}
 	}
-
+	
 	//to read mouse position use mouse_position
 }
 
@@ -222,7 +222,7 @@ void Application::onKeyDown(SDL_KeyboardEvent event)
 		exit(0);
 		break; //ESC key, kill the app	
 
-	case SDL_SCANCODE_1:
+	case SDL_SCANCODE_1: //Programem els codis per executar cada tasca
 		var = 1;
 		break;
 
@@ -271,20 +271,20 @@ void Application::onKeyUp(SDL_KeyboardEvent event)
 }
 
 //mouse button event
-void Application::onMouseButtonDown( SDL_MouseButtonEvent event )
+void Application::onMouseButtonDown( SDL_MouseButtonEvent event ) //Funció que ens permet programar events del ratolí
 {
 	if (event.button == SDL_BUTTON_LEFT) //left mouse pressed
 	{
 		//if you read mouse position from the event, careful, Y is reversed, use mouse_position instead
-		if ((mouse_position.x >= 10 && mouse_position.x <= 35) && (mouse_position.y >= 560 && mouse_position.y <= 590)){
-			canvas.fill(Color::WHITE);
+		if ((mouse_position.x >= 10 && mouse_position.x <= 35) && (mouse_position.y >= 560 && mouse_position.y <= 590)){  //Programem que farà el programa segons el botó que hem clicat de l'entorn per pintar
+			canvas.fill(Color::WHITE); //Si fem clic a l'icona de nova fulla, netegem el canvas i comencem de nou
 		}
 
-		else if ((mouse_position.x >= 60 && mouse_position.x <= 90) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+		else if ((mouse_position.x >= 60 && mouse_position.x <= 90) && (mouse_position.y >= 560 && mouse_position.y <= 590)) { //Si fem clic al boto de guardat guardarem la imatge
 			canvas.saveTGA("../../res/LaObraMagnífica.tga");
 		}
 
-		else if ((mouse_position.x >= 111 && mouse_position.x <= 138) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
+		else if ((mouse_position.x >= 111 && mouse_position.x <= 138) && (mouse_position.y >= 560 && mouse_position.y <= 590)) { //En els altres casos canviem el color segons el del botó i ens guardem la coordenada x d'aquest per dibuixar el rectangle al seu voltant
 			c = Color::BLACK;
 			xrect = 112;
 		}
