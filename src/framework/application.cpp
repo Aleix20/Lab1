@@ -2,7 +2,6 @@
 #include "utils.h"
 #include "image.h"
 
-
 Image img1;
 Image img2;
 Image canvas;
@@ -46,11 +45,9 @@ void Application::init(void)
 	
 	img2.loadTGA("../../res/toolbar.tga");
 	
-	
 	//Task 5:
 	for (int i = 0; i < midaArray; i++)
 	{
-		
 		int x = rand() % (int)window_width;
 		int y = rand() % (int)(window_height)+300;
 		int size =  rand() % 3;
@@ -88,7 +85,6 @@ void Application::render( Image& framebuffer )
 		
 		framebuffer.drawLine(400, 200, 300, 200, Color(0, 0, 255));
 		framebuffer.drawLine(400, 200, 300, 300, Color(0, 0, 255));
-
 	}
 
 	//Task 2: Gradients
@@ -153,7 +149,6 @@ void Application::render( Image& framebuffer )
 		for (int i = 0; i < midaArray; i++)
 		{
 			framebuffer.drawCircle(arr[i].x, arr[i].y, arr[i].size, Color::WHITE, true);
-
 		}
 	}
 
@@ -181,7 +176,6 @@ void Application::render( Image& framebuffer )
 				canvas.setPixelSafe(x-5, y-5, framebuffer.getPixelSafe(x,y));
 			}
 		}
-
 		canvas.saveTGA("../../res/LaObraMagnífica.tga");
 	}
 
@@ -205,13 +199,6 @@ void Application::render( Image& framebuffer )
 	}
 	if (var == 19) {
 		c = Color::CYAN;
-		
-		//filling the framebuffer with the image
-		for (unsigned int x = 5; x < framebuffer.width - 5; x++) {
-			for (unsigned int y = 5; y < framebuffer.height - 50; y++) {
-				framebuffer.setPixel(x, y, c);
-			}
-		}
 	}
 	if (var == 20) {
 		c = Color::WHITE;
@@ -240,6 +227,9 @@ void Application::update(double seconds_elapsed)
 		}
 	}
 
+	if (keystate[SDL_BUTTON_LEFT]) {
+		canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x - mouse_delta.x, mouse_position.y - mouse_delta.y, c);
+	}
 	//to read mouse position use mouse_position
 }
 
@@ -293,7 +283,6 @@ void Application::onKeyDown(SDL_KeyboardEvent event)
 		var = 10;
 		break;
 	}
-	
 }
 
 //keyboard key up event 
@@ -348,8 +337,6 @@ void Application::onMouseButtonDown( SDL_MouseButtonEvent event )
 		else if ((mouse_position.x >= 464 && mouse_position.x <= 488) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
 			var = 20;
 		}
-
-		
 	}
 }
 
