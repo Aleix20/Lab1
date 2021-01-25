@@ -35,6 +35,16 @@ public:
 	//main methods
 	void init( void );
 	void render( Image& framebuffer );
+	void Task6_Canvas(Image& framebuffer);
+	void Task5_DrawParticles(Image& framebuffer);
+	void Task4_Scale(Image& framebuffer);
+	void Task4_Rotate(Image& framebuffer);
+	void Task3_Negative(Image& framebuffer);
+	void Task3_Grey(Image& framebuffer);
+	void Task3_Image(Image& framebuffer);
+	void Task2_2(Image& framebuffer);
+	void Task2_1(Image& framebuffer);
+	void Task1(Image& framebuffer);
 	void update( double dt );
 
 	//methods for events
