@@ -41,10 +41,10 @@ void Application::init(void)
 	std::cout << "initiating app..." << std::endl;
 
 	//here add your init stuff
-	img1.loadTGA("../res/image.tga");
+	img1.loadTGA("../../res/image.tga");
 	img1.scale(window_width, window_height);
 	
-	img2.loadTGA("../res/toolbar.tga");
+	img2.loadTGA("../../res/toolbar.tga");
 	
 	
 	//Task 5:
@@ -182,7 +182,7 @@ void Application::render( Image& framebuffer )
 			}
 		}
 
-		canvas.saveTGA("../res/LaObraMagnífica.tga");
+		canvas.saveTGA("../../res/LaObraMagnífica.tga");
 	}
 
 	if (var == 13) {
