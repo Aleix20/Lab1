@@ -78,17 +78,17 @@ void Application::render( Image& framebuffer )
 		framebuffer.drawCircle(345, 375, 45, Color(0, 255, 0), true);
 		framebuffer.drawCircle(455, 375, 45, Color(0, 255, 0), false);
 
-		framebuffer.drawLine(400, 200, 400, 300, Color(0,0,255));
-		framebuffer.drawLine(400, 200, 500, 300, Color(0, 0, 255));
+		framebuffer.drawLine(400, 200, 400, 300, Color(0,0,255), false);
+		framebuffer.drawLine(400, 200, 500, 300, Color(0, 0, 255), false);
 		
-		framebuffer.drawLine(400, 200, 500, 200, Color(0, 0, 255));
-		framebuffer.drawLine(400, 200, 500, 100, Color(0, 0, 255));
+		framebuffer.drawLine(400, 200, 500, 200, Color(0, 0, 255), false);
+		framebuffer.drawLine(400, 200, 500, 100, Color(0, 0, 255), false);
 		
-		framebuffer.drawLine(400, 200, 400, 100, Color(0, 0, 255));
-		framebuffer.drawLine(400, 200, 300, 100, Color(0, 0, 255));
+		framebuffer.drawLine(400, 200, 400, 100, Color(0, 0, 255), false);
+		framebuffer.drawLine(400, 200, 300, 100, Color(0, 0, 255), false);
 		
-		framebuffer.drawLine(400, 200, 300, 200, Color(0, 0, 255));
-		framebuffer.drawLine(400, 200, 300, 300, Color(0, 0, 255));
+		framebuffer.drawLine(400, 200, 300, 200, Color(0, 0, 255), false);
+		framebuffer.drawLine(400, 200, 300, 300, Color(0, 0, 255), false);
 	}
 
 	//Task 2: Gradients
@@ -191,7 +191,7 @@ void Application::update(double seconds_elapsed)
 			//canvas.drawCircle(mouse_position.x, mouse_position.y, 5, c, true);
 			//canvas.drawCircle(mouse_position.x+mouse_delta.x, mouse_position.y+mouse_delta.y,5,c,true);
 			
-			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x +mouse_delta.x, mouse_position.y + mouse_delta.y, c);
+			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x +mouse_delta.x, mouse_position.y + mouse_delta.y, c, true);
 			
 		}
 	}
@@ -207,11 +207,6 @@ void Application::update(double seconds_elapsed)
 		}
 	}
 
-	if (keystate[SDL_BUTTON_LEFT]){
-		if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) {
-			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_delta.x, mouse_delta.y, c);
-		}
-	}
 	//to read mouse position use mouse_position
 }
 

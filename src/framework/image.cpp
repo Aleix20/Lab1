@@ -302,7 +302,7 @@ void Image::drawCircle(int start_x, int start_y, int r, Color color, bool fill) 
 	}
 }
 
-void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
+void Image::drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness) {
 	
 	float v1 = (x2 - x1);
 	float v2 = (y2 - y1);
@@ -317,6 +317,12 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 		{
 			int y = m * (x - x1) + y1;
 			this->setPixelSafe(x, y, color);
+			if (thickness) {
+				this->setPixelSafe(x, y + 1, color);
+				this->setPixelSafe(x, y + 2, color);
+				this->setPixelSafe(x, y + 3, color);
+			}
+			
 		}
 	}
 	else if(x2<x1) {
@@ -325,6 +331,11 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 		{
 			int y = m * (x - x1) + y1;
 			this->setPixelSafe(x, y, color);
+			if (thickness) {
+				this->setPixelSafe(x, y + 1, color);
+				this->setPixelSafe(x, y + 2, color);
+				this->setPixelSafe(x, y + 3, color);
+			}
 		}
 	}
 	else {
@@ -333,6 +344,11 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 			{
 
 				this->setPixelSafe(x1, y, color);
+				if (thickness) {
+					this->setPixelSafe(x1, y + 1, color);
+					this->setPixelSafe(x1, y + 2, color);
+					this->setPixelSafe(x1, y + 3, color);
+				}
 			}
 		}
 		else {
@@ -340,6 +356,11 @@ void Image::drawLine(int x1, int y1, int x2, int y2, Color color) {
 			{
 
 				this->setPixelSafe(x1, y, color);
+				if (thickness) {
+					this->setPixelSafe(x1, y + 1, color);
+					this->setPixelSafe(x1, y + 2, color);
+					this->setPixelSafe(x1, y + 3, color);
+				}
 			}
 		}	
 	}

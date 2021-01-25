@@ -75,7 +75,7 @@ public:
 
 	void drawCircle(int start_x, int start_y, int r, Color color, bool fill);
 
-	void drawLine(int x1, int y1, int x2, int y2, Color color);
+	void drawLine(int x1, int y1, int x2, int y2, Color color, bool thickness);
 
 	void drawGradientH(Color startColor, Color endColor);
 
