@@ -8,6 +8,7 @@ Image canvas;
 Color c;
 int var;
 const int midaArray = 50;
+int xrect = 0;
 
 struct Particle {
 	int x;
@@ -44,6 +45,9 @@ void Application::init(void)
 	img1.scale(window_width, window_height);
 	
 	img2.loadTGA("../../res/toolbar.tga");
+	
+	canvas.resize(800, 600);
+	canvas.fill(Color::WHITE);
 	
 	//Task 5:
 	for (int i = 0; i < midaArray; i++)
@@ -153,57 +157,28 @@ void Application::render( Image& framebuffer )
 	}
 
 	if (var == 10) {
+		
 		//filling the framebuffer with the image
 		for (unsigned int x = 0; x < framebuffer.width; x++) {
 			for (unsigned int y = framebuffer.height-1; y > 0; y--) {
 				framebuffer.setPixel(x, y, img2.getPixelSafe(x, y-framebuffer.height + img2.height));
 			}
 		}
-	}
-	if (var == 11) {
+		
+		if (xrect > 0) {
+			framebuffer.drawRectangle(xrect, 562, 26, 26, Color::WHITE, false);
+		}
+
 		//filling the framebuffer with the image
-		for (unsigned int x = 5; x < framebuffer.width-5; x++) {
+		for (unsigned int x = 5; x < framebuffer.width - 5; x++) {
 			for (unsigned int y = 5; y < framebuffer.height - 50; y++) {
-				framebuffer.setPixel(x, y, Color::WHITE);
+				framebuffer.setPixel(x, y, canvas.getPixelSafe(x, y));
 			}
 		}
-	}
 
-	if (var == 12) {
-		canvas.resize(790, 545);
-		for (unsigned int x = 5; x < framebuffer.width-5; x++) {
-			for (unsigned int y = 5; y < framebuffer.height-50; y++) {
-				canvas.setPixelSafe(x-5, y-5, framebuffer.getPixelSafe(x,y));
-			}
-		}
-		canvas.saveTGA("../../res/LaObraMagnífica.tga");
+		
 	}
-
-	if (var == 13) {
-		c = Color::BLACK;
-	}
-	if (var == 14) {
-		c = Color::RED;
-	}
-	if (var == 15) {
-		c = Color::GREEN;
-	}
-	if (var == 16) {
-		c = Color::BLUE;
-	}
-	if (var == 17) {
-		c = Color::YELLOW;
-	}
-	if (var == 18) {
-		c = Color::PURPLE;
-	}
-	if (var == 19) {
-		c = Color::CYAN;
-	}
-	if (var == 20) {
-		c = Color::WHITE;
-	}
-
+	
 }
 
 //called after render
@@ -228,7 +203,9 @@ void Application::update(double seconds_elapsed)
 	}
 
 	if (keystate[SDL_BUTTON_LEFT]) {
-		canvas.drawLine(mouse_position.x, mouse_position.y, mouse_position.x - mouse_delta.x, mouse_position.y - mouse_delta.y, c);
+		if ((mouse_position.x >= 5 && mouse_position.x <= 795) && (mouse_position.y >= 5 && mouse_position.y <= 545)) {
+			canvas.drawLine(mouse_position.x, mouse_position.y, mouse_delta.x, mouse_delta.y, c);
+		}
 	}
 	//to read mouse position use mouse_position
 }
@@ -298,44 +275,52 @@ void Application::onMouseButtonDown( SDL_MouseButtonEvent event )
 	{
 		//if you read mouse position from the event, careful, Y is reversed, use mouse_position instead
 		if ((mouse_position.x >= 10 && mouse_position.x <= 35) && (mouse_position.y >= 560 && mouse_position.y <= 590)){
-			var = 11;
+			canvas.fill(Color::WHITE);
 		}
 
 		else if ((mouse_position.x >= 60 && mouse_position.x <= 90) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 12;
+			canvas.saveTGA("../../res/LaObraMagnífica.tga");
 		}
 
 		else if ((mouse_position.x >= 111 && mouse_position.x <= 138) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 13;
+			c = Color::BLACK;
+			xrect = 112;
+			
 		}
 
-
 		else if ((mouse_position.x >= 163 && mouse_position.x <= 186) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 14;
+			c = Color::RED;
+			xrect = 162;	
 		}
 
 		else if ((mouse_position.x >= 214 && mouse_position.x <= 238) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 15;
+			c = Color::GREEN;
+			xrect = 212;
 		}
 
 		else if ((mouse_position.x >= 264 && mouse_position.x <= 288) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 16;
+			c = Color::BLUE;
+			xrect = 262;
 		}
 
 		else if ((mouse_position.x >= 314 && mouse_position.x <= 338) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 17;
+			c = Color::YELLOW;
+			xrect = 312;
 		}
 
 		else if ((mouse_position.x >= 364 && mouse_position.x <= 388) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 18;
+			c = Color::PURPLE;
+			xrect = 362;
 		}
 
 		else if ((mouse_position.x >= 414 && mouse_position.x <= 438) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 19;
+			c = Color::CYAN;
+			xrect = 412;
 		}
 
 		else if ((mouse_position.x >= 464 && mouse_position.x <= 488) && (mouse_position.y >= 560 && mouse_position.y <= 590)) {
-			var = 20;
+			c = Color::WHITE;
+			xrect = 462;
 		}
 	}
 }
